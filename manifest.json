@@ -1,0 +1,39 @@
+{
+	"manifest_version": 2,
+	"name": "Capture Page State",
+	"description": "Get web page Screenshot, Console Logs, HAR log and save all the page sources",
+	"version": "0.0.2",
+	"devtools_page": "devtools.html",
+	"web_accessible_resources": [
+		"/images/checkMark.png"
+	],
+	"icons": {
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png"
+	},
+	"background": {
+		"scripts": [
+			"background.js",
+			"hot-reload.js"
+		],
+		"persistent": true
+	},
+	"browser_action": {
+		"default_popup": "popup.html",
+		"default_title": "Capture Page State"
+	},
+	"permissions": [
+		"activeTab",
+		"storage",
+		"downloads",
+		"notifications",
+		"activeTab",
+		"<all_urls>",
+		"http://*/*",
+		"https://*/*",
+		"background",
+		"tabs",
+		"debugger"
+	]
+}
