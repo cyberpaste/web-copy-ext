@@ -1,0 +1,139 @@
+body {
+    font: normal 12px/16px helvetica, aria, sans-serif;
+}
+
+div, p {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    word-wrap: break-word;
+}
+
+.clr {
+    overflow: hidden;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+a {
+    color: #3681b3;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #265c80;
+}
+
+a:active {
+    color: #000;
+}
+
+#wrap {
+    width: 300px;
+    padding-top: 9px;
+    font-size: 12px;
+    color: #888;
+}
+
+#wrap>div {
+    display: none;
+}
+
+#wrap>#loading {
+    display: block;
+}
+
+#loading .loader {
+    position: relative;
+    border-top: 12px dotted #000;
+    height: 9px;
+}
+
+.btn {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.block {
+    padding-top: 5px
+}
+
+.block .top {}
+
+.block .bottom {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+.pb-1 {
+    padding-bottom: 1rem;
+}
+
+.pt-1 {
+    padding-top: 1rem;
+}
+
+/**/
+
+body {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: none;
+    padding: none;
+}
+
+body.shutdown {
+    
+}
+
+body.shutdown #player {
+    display: none;
+}
+
+body.shutdown #save-video {
+    display: none;
+}
+
+#msg {
+    display: none;
+}
+
+body.shutdown #msg {
+    display: block;
+}
+
+.video-border {
+    border: 1px solid gray;
+    box-shadow: 1px 1px 1px 0px gray;
+}
+
+.btn-save {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    background-color: #555555;
+    color: white;
+}
+
+.btn-save:hover {
+    cursor: pointer
+}
+
+video {
+    max-width: 80vw;
+    max-height: 80vh;
+}

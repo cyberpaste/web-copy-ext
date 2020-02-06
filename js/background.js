@@ -5,7 +5,86 @@
 // chrome.tabs.*
 // chrome.extension.*
 
+
+
+var receiver = null;
 var version = "1.0";
+
+var openCount = 0;
+var isDevToolsOpen = false;
+
+/** events for tab capture */
+function playCapturedStream(stream) {
+    if (!stream) {
+        console.error('Error starting tab capture: ' +
+            (chrome.runtime.lastError.message || 'UNKNOWN'));
+        return;
+    }
+    if (receiver != null) {
+        receiver.close();
+    }
+    receiver = window.open('html/receiver.html');
+    receiver.currentStream = stream;
+
+}
+
+function testCapture() {
+    console.log('Test with method capture().');
+    chrome.tabCapture.capture({
+        video: true, audio: true,
+        videoConstraints: {
+            mandatory: {
+                minWidth: 16,
+                minHeight: 9,
+                maxFrameRate: 60,
+            },
+        },
+    },
+
+        function (stream) {
+
+            if (!stream) {
+                console.error('Error starting tab capture: ' +
+                    (chrome.runtime.lastError.message || 'UNKNOWN'));
+                return;
+            }
+            if (receiver != null) {
+                receiver.close();
+            }
+            receiver = window.open('html/receiver.html');
+            receiver.currentStream = stream;
+
+        });
+}
+
+function testGetMediaStreamId() {
+    console.log('Test with method getMediaStreamId().');
+    chrome.tabCapture.getMediaStreamId(function (streamId) {
+        if (typeof streamId !== 'string') {
+            console.error('Failed to get media stream id: ' +
+                (chrome.runtime.lastError.message || 'UNKNOWN'));
+            return;
+        }
+
+        navigator.webkitGetUserMedia({
+            audio: false,
+            video: {
+                mandatory: {
+                    chromeMediaSource: 'tab',
+                    chromeMediaSourceId: streamId
+                }
+            }
+        },
+            function (stream) {
+                playCapturedStream(stream);
+            },
+            function (error) {
+                console.error(error);
+            })
+    });
+}
+
+/** end */
 
 // When devtools opens, this gets connected
 chrome.extension.onConnect.addListener(function (port) {
@@ -65,11 +144,6 @@ function onAttach(tabId) {
 
 }
 
-
-// is devtools open
-var openCount = 0;
-var isDevToolsOpen = false;
-
 // Always return true for async connections for chrome.runtime.onConnect.addListener
 chrome.runtime.onConnect.addListener(function (port) {
     if (port.name == "devtools-page") {
@@ -104,6 +178,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
         chrome.debugger.attach({ tabId: request.tabId }, version,
             onAttach.bind(null, request.tabId));
+    } else if (request.directive === "popup-click") {
+        chrome.storage.local.get(['tabCaptureMethod'], function (result) {
+            if (result.tabCaptureMethod == 'streamId') {
+                testGetMediaStreamId();
+            } else {
+                testCapture();
+            }
+        });
     }
     return true;
 });

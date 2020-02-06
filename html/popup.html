@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8>
+  <title>Page capture options</title>
+  <link href="../css/custom.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="block">
+    <div class="top">
+      <div>
+        <input type="checkbox" id="checkboxScreenshot" value="screenshot"> Screenshot<br>
+        <input type="checkbox" id="checkboxConsoleLog" value="consoleLog"> Console Logs<br>
+        <input type="checkbox" id="checkboxHARLog" value="HARLog"> HAR log<br>
+        <input type="checkbox" id="checkboxSavePage" value="savePage"> Save page<br><br>
+        <input type="submit" id="whatToCapture" class="btn" value="Get Snapshot">
+      </div>
+    </div>
+    
+   <div class="bottom pb-1 pt-1">
+      <hr/>
+   </div>
+
+    <div class="bottom pb-1">
+      <button type="button" id="startRecording" class="btn">Record tab</button>
+    </div>
+  </div>
+
+
+  <script src="../js/popup.js"></script>
+</body>
+
+</html>

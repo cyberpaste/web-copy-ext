@@ -2,6 +2,7 @@
 // Copyright (c) 2015 Jean-Martin Archer
 // Use of this source code is governed by the MIT License found in LICENSE
 
+
 function $(id) { return document.getElementById(id); }
 function show(id) { $(id).style.display = 'block'; }
 
@@ -273,6 +274,20 @@ var runPopup = function () {
 				}
 			});
 		}
+
+	}
+})();
+
+
+
+(function () {
+	document.getElementById('startRecording').onclick = function (event) {
+		//alert(4);
+
+		chrome.runtime.sendMessage({ directive: "popup-click" }, function (response) {
+			this.close(); // close the popup when the background finishes processing request
+		});
+
 
 	}
 })();
